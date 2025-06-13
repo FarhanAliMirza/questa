@@ -27,6 +27,7 @@ interface Quiz {
 export default function QuizPage() {
   const params = useParams();
   const [quiz, setQuiz] = useState<Quiz | null>(null);
+  const [submitted, setSubmitted] = useState(false);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -38,7 +39,6 @@ export default function QuizPage() {
     try {
       const response = await axios.get(`${BASE_URL}/api/quiz/${params.quizId}`);
       setQuiz(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error(error);
       toast.error("Failed to load quiz");
@@ -71,8 +71,8 @@ export default function QuizPage() {
         quizId: params.quizId,
         answers,
       });
-      console.log(answers);
       toast.success("Quiz submitted successfully!");
+      setSubmitted(true);
     } catch (error) {
       console.error(error);
       toast.error("Failed to submit quiz");
@@ -87,6 +87,16 @@ export default function QuizPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
           <h1 className="text-2xl font-bold">Loading quiz...</h1>
+        </div>
+      </div>
+    );
+  }
+
+  if (submitted) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold">Quiz submitted successfully!</h1>
         </div>
       </div>
     );
