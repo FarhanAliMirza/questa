@@ -64,15 +64,15 @@ export const SignUpForm = () => {
         name: data.name,
       },
       {
-        onRequest: (ctx) => {
+        onRequest: () => {
           setIsLoading(true);
         },
-        onSuccess: (ctx) => {
+        onSuccess: () => {
           setIsLoading(false);
           toast.success("Signup successful !");
           router.push("/user");
         },
-        onError: (ctx) => {
+        onError: () => {
           setIsLoading(false);
           toast.error("Something went wrong, please try again !");
         },

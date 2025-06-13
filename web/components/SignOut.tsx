@@ -18,6 +18,7 @@ export const SignOut = () => {
       router.push("/");
     } catch (error) {
       toast.error("Failed to sign out");
+      console.log(error);
     } finally {
       setIsLoading(false);
     }

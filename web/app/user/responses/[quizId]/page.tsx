@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -40,9 +40,6 @@ export default function ResponsesPage() {
   const router = useRouter();
   const [responses, setResponses] = useState<Response[]>([]);
   const [quiz, setQuiz] = useState<Quiz | null>(null);
-  const [selectedResponse, setSelectedResponse] = useState<Response | null>(
-    null
-  );
 
   useEffect(() => {
     fetchData();
