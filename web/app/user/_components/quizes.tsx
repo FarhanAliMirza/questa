@@ -9,7 +9,7 @@ import { Quiz } from "./Quiz";
 import { Button } from "@/components/ui/button";
 import { PlusCircle, Loader2 } from "lucide-react";
 
-const quizes = () => {
+const Quizes = () => {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [quizzes, setQuizzes] = useState<{ id: string; title: string }[]>([]);
@@ -88,4 +88,4 @@ const quizes = () => {
   );
 };
 
-export default quizes;
+export default Quizes;
