@@ -62,7 +62,7 @@ export default function CreateQuiz() {
     }
   };
 
-  const updateQuestion = (id: string, field: keyof Question, value: any) => {
+  const updateQuestion = (id: string, field: keyof Question, value: unknown) => {
     setQuestions(
       questions.map((q) => (q.id === id ? { ...q, [field]: value } : q))
     );
