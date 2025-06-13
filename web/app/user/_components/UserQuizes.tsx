@@ -4,7 +4,7 @@ import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { BASE_URL } from "@/lib/config";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Quiz } from "./QuizCard";
 import { Button } from "@/components/ui/button";
 import { PlusCircle, Loader2 } from "lucide-react";
@@ -19,8 +19,7 @@ const Quizes = () => {
 
   const fetchQuizzes = async () => {
     const { data: session } = await authClient.getSession();
-    if (session?.user?.id) {
-      const userId = session.user.id;
+      const userId = session?.user.id;
       try {
         const response = await axios.get(`${BASE_URL}/api/user`, {
           headers: {
@@ -29,13 +28,14 @@ const Quizes = () => {
         });
         setQuizzes(response.data);
       } catch (error) {
-        console.log(error);
+        if (error instanceof AxiosError) {
+          if (error.response?.status === 401) {
+            toast.error("Please sign in to view your quizzes");
+            router.push("/signin");
+          }
+        }
       }
       setIsLoggedIn(true);
-    } else {
-      toast.error("Please sign in to view your quizzes");
-      router.push("/signin");
-    }
   };
   return (
     <>
