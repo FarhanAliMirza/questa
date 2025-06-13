@@ -12,7 +12,7 @@ const app = express();
 
 app.use(cors(
     {
-        origin: process.env.ALLOWED_ORIGIN ? process.env.ALLOWED_ORIGIN : "http://localhost:3000",
+        origin: "https://questa-blue.vercel.app",
         credentials: true
     }
 ));
