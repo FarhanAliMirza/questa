@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { BASE_URL } from "@/lib/config";
@@ -18,8 +17,7 @@ const Quizes = () => {
   }, []);
 
   const fetchQuizzes = async () => {
-    const { data: session } = await authClient.getSession();
-      const userId = session?.user.id;
+      const userId = localStorage.getItem("token");
       try {
         const response = await axios.get(`${BASE_URL}/api/user`, {
           headers: {

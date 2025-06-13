@@ -1,7 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useEffect,useState } from "react";
-import { authClient } from "@/lib/auth-client";
 import { RegisterPage } from "./_components/register-page";
 
 const Loginpage = () => {
@@ -9,8 +8,7 @@ const Loginpage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const checkAuth = async () => {
     setIsLoading(true);
-    const session = await authClient.getSession();
-    if(session.data?.user.id){
+    if(localStorage.getItem("token")){
       setIsLoading(false);
       router.push("/user");
     }else{

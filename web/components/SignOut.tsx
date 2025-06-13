@@ -14,6 +14,7 @@ export const SignOut = () => {
     try {
       setIsLoading(true);
       await authClient.signOut();
+      localStorage.removeItem("token");
       toast.success("Signed out successfully");
       router.push("/");
     } catch (error) {

@@ -57,7 +57,7 @@ export const SignUpForm = () => {
   });
 
   const onSubmit = async (data: SignupFormValues) => {
-    await authClient.signUp.email(
+    const response= await authClient.signUp.email(
       {
         email: data.email,
         password: data.password,
@@ -78,6 +78,9 @@ export const SignUpForm = () => {
         },
       }
     );
+    if(response.data){
+      localStorage.setItem("token", response.data.user.id);
+    }
   };
 
   return (

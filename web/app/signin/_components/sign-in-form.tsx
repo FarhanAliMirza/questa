@@ -52,11 +52,11 @@ export const SignInForm = () => {
     },
   });
 
-  const onSubmit = async (data: SigninFormValues) => {
-    await authClient.signIn.email(
+  const onSubmit = async (payload: SigninFormValues) => {
+    const response= await authClient.signIn.email(
       {
-        email: data.email,
-        password: data.password,
+        email: payload.email,
+        password: payload.password,
       },
       {
         onRequest: () => {
@@ -73,6 +73,9 @@ export const SignInForm = () => {
         },
       }
     );
+    if(response.data){
+      localStorage.setItem("token", response.data.user.id);
+    }
   };
 
   return (

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -46,8 +45,7 @@ export default function ResponsesPage() {
   }, []);
 
   const fetchData = async () => {
-    const { data: session } = await authClient.getSession();
-    if (!session?.user?.id) {
+    if (!localStorage.getItem("token")) {
       toast.error("Please login to view responses");
       router.push("/signin");
     }
@@ -56,7 +54,7 @@ export default function ResponsesPage() {
         axios.get(`${BASE_URL}/api/quiz/${params.quizId}`),
         axios.get(`${BASE_URL}/api/user/${params.quizId}/responses`, {
           headers: {
-            userId: session?.user.id,
+            userId: localStorage.getItem("token"),
           },
         }),
       ]);

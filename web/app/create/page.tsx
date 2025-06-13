@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Nav } from "@/components/shared/nav";
-import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,19 +34,14 @@ export default function CreateQuiz() {
   ]);
 
   useEffect(() => {
-    getUserId();
-    if (userId) {
+    if (!localStorage.getItem("token")) {
       toast.error("Please sign in to create a quiz");
       router.push("/signin");
     } else {
+      setUserId(localStorage.getItem("token"));
       setIsLoggedIn(true);
     }
   }, []);
-
-  const getUserId = async () => {
-    const session = await authClient.getSession();
-    setUserId(session?.data?.user.id || null);
-  };
 
   const addQuestion = () => {
     setQuestions([
