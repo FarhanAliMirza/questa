@@ -1,4 +1,4 @@
-import Quizes from "./_components/quizes";
+import Quizes from "./_components/Quizes";
 import { Nav } from "@/components/shared/nav";
 
 const page = () => {
